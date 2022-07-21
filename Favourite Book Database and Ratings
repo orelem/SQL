@@ -1,7 +1,7 @@
 /** Favourite Book List:
-The One Thing (8)
-The Richest Man In Babylon (10)
-Kontiki (9)
+The One Thing (8 out of 10)
+The Richest Man In Babylon (10 out of 10)
+Kontiki (9 out of 10)
 **/
 
 CREATE TABLE favourite_books (id INTEGER PRIMARY KEY, name TEXT, rating INTEGER);
