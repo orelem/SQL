@@ -1,0 +1,55 @@
+/* Chinook Digital Media Store Dataset questions and answers */
+
+/* 
+Find the top 5 best-selling tracks of all time in terms of quantity sold. 
+*/
+SELECT tracks.Name, tracks.Composer, SUM(invoice_items.Quantity) AS TotalQuantity
+FROM tracks
+JOIN invoice_items ON tracks.TrackId = invoice_items.TrackId
+GROUP BY tracks.Name, tracks.Composer
+ORDER BY TotalQuantity DESC
+LIMIT 5;
+
+/*
+List all the albums that contain more than 10 tracks.
+*/
+
+SELECT a.Title
+FROM albums a
+JOIN tracks t
+ON a.AlbumId = t.AlbumId
+GROUP BY t.AlbumId
+HAVING COUNT(t.TrackId) > 10;
+
+/*
+Show the average length of tracks in each genre.
+*/
+SELECT g.Name, AVG(t.Milliseconds) AS Average_Length
+FROM genres g
+JOIN tracks t
+ON g.GenreId = t.GenreId
+GROUP BY g.Name;
+
+
+/*
+Determine which genre has the most tracks.
+*/
+SELECT g.Name, COUNT(t.Name) AS Track_Amount
+FROM genres g
+JOIN tracks t
+ON g.GenreId = t.GenreId
+GROUP BY g.Name
+ORDER BY Track_Amount DESC
+LIMIT 1;
+
+
+/*
+Find out which customer has spent the most money on purchases.
+*/
+SELECT c.FirstName, c.LastName, SUM(i.Total) Spent
+FROM customers c
+JOIN invoices i
+ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId
+ORDER BY Spent DESC
+LIMIT 1;
