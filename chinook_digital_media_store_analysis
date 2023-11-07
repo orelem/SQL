@@ -53,3 +53,24 @@ ON c.CustomerId = i.CustomerId
 GROUP BY c.CustomerId
 ORDER BY Spent DESC
 LIMIT 1;
+
+/*
+Identify the employee who has the highest number of reporting staff.
+*/
+
+SELECT e.FirstName, e.LastName, COUNT(r.EmployeeId) as ReportCount
+FROM chinook.employees e
+LEFT JOIN chinook.employees r
+ON e.EmployeeId = r.ReportsTo
+GROUP BY e.EmployeeId
+ORDER BY ReportCount DESC
+LIMIT 1;
+
+/*
+Show a list of tracks that have never been purchased.
+*/
+SELECT t.Name, i.InvoiceId
+FROM chinook.tracks t
+LEFT JOIN chinook.invoice_items i
+ON i.TrackId = t.TrackId
+WHERE i.TrackId IS NULL;
